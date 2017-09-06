@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body ng-controller="main">
+    <tab data="data"></tab>
+</body>
+    <script src="./js/angular.min.js"></script>
+</html>
+<script>
+
+angular.module('app',[])
+        .controller('main',['$scope','$http',function($scope,$http){
+        $http({
+            url:'http://localhost:3000/goodslist'
+        })
+        .then(function(result){
+            $scope.data = result.data;
+        },function(error){
+            throw new Error(error);
+        })
+        }])  
+        .directive('tab',function(){
+            return {
+            restrict:'E',
+            templateUrl:'./tab.html',
+            scope:{
+                data:'='
+            },
+            controller:['$scope',function($scope){
+                $scope.$watch('data',function(newVal,oldVal){
+
+                    if(newVal){
+                        $scope.value = newVal[0].value;
+                    }
+
+                })               
+                $scope.fn = function(value){
+                    $scope.value = value;
+                }
+
+            }]
+            }
+        })
+</script>
