@@ -6,6 +6,10 @@
 
 ## 使用方法(Usage)
 
+    git clone git@github.com:PsChina/angularJS.git
+
+    cd angularJS-tab切换
+
 ### npm
 
     1. npm i ↵
