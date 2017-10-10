@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body ng-controller="main">
+    <input type="text" placeholder="账号" ng-model="phonenumber" ng-change="change()">
+    <div ng-show="exist" style="color:red">用户存在</div>
+    <input type="password" placeholder="密码" ng-model="password">
+    <!-- <input type="text" placeholder="确认密码"> -->
+    <button ng-click="register()">注册</button>
+</body>
+<script src="./angular.js"></script>
+</html>
+<script>
+    angular.module('app',[])
+            .controller('main',['$scope','$http',function($scope,$http){ //数组注释法 + 依赖注入
+                $scope.msg = 'hello';
+                $scope.register = function(){
+                    $http({
+                        url:'http://localhost:3000/register',
+                        method:'POST',
+                        data: {
+                            user:$scope.phonenumber,
+                            password:$scope.password
+                        }
+                    })
+                    .then(function(result){ 
+                        console.log(result)
+                    },function(error){
+                        console.log(error)
+                    })
+                }
+                $scope.change = function(){
+                    console.log($scope.phonenumber);
+                    $http({
+                        url:'http://localhost:3000/detectionUser',
+                        method:'POST',
+                        data:{
+                            user:$scope.phonenumber
+                        }
+                    }).then(function(result){
+                        
+                        $scope.exist = result.data.status*1;
+                        if($scope.exist){
+                            $scope.register = null;
+                        }else{
+                            $scope.register = function(){
+                    $http({
+                        url:'http://localhost:3000/register',
+                        method:'POST',
+                        data: {
+                            user:$scope.phonenumber,
+                            password:$scope.password
+                        }
+                    })
+                    .then(function(result){ 
+                        console.log(result)
+                    },function(error){
+                        console.log(error)
+                    })
+                }
+                        }
+
+                    },function(error){
+                        console.log(error)
+                    })
+                } 
+            }])
+</script>
