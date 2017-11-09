@@ -82,11 +82,11 @@ angular.module('app',[]).run(['$rootScope',function($rootScope){
                 $rootScope.path = currentRoute.$$route.originalPath
             })
 
-            $rootScope.$on('$routeChangeError',function(event,currentRoute,previousRoute,Error){
+            $rootScope.$on('$routeChangeError',function(event,currentRoute,previousRoute,error){
                 console.log(event.name,arguments)
             })
 
-            $rootScope.$on('$routeUpdate',function(){ //这个我没法演示
+            $rootScope.$on('$routeUpdate',function(event,currentRoute){ //这个我没法演示
 
             })
            }])
