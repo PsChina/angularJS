@@ -86,7 +86,7 @@ angular.module('app',[]).run(['$rootScope',function($rootScope){
                 console.log(event.name,arguments)
             })
 
-            $rootScope.$on('$routeUpdate',function(event,currentRoute){ //这个我没法演示
+            $rootScope.$on('$routeUpdate',function(event,currentRoute){ 
 
             })
            }])
