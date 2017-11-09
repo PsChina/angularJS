@@ -15,12 +15,14 @@ angular.module('app',[]).run(['$rootScope',function($rootScope){
         $rootScope.path = currentRoute.$$route.originalPath //在路由跳转成功以后获取路由路径 存储在$rootScope.path 里
     })
 
-    $rootScope.$on('$routeChangeError',function(event,currentRoute,previousRoute,Error){
+    $rootScope.$on('$routeChangeError',function(event,currentRoute,previousRoute,error){
        //第四个参数是 错误信息
     })
 
-    $rootScope.$on('$routeUpdate',function(){ //这个我没法演示 sorry this event I dont konw how to trigger 
-
+    $rootScope.$on('$routeUpdate',function(event,currentRoute){ 
+        // 触发条件
+        // 1、将 路由内 reloadOnSearch 属性设置为 false
+        // 2、改变路由参数 也就是hash 中 ? 以后的 内容.
     })
     }])
 ```
