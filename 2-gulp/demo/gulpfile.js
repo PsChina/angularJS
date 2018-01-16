@@ -51,13 +51,30 @@ gulp.task('mockServer', function () {
                             console.log(dataBase)
                             var users = dataBase['users'];
                             res.setHeader('content-type','application/json;charset=utf-8')
+                            var exist = false;
                                 var newUser = {
                                     user: postDataJson.user,
                                     password:postDataJson.password                               
                                 }
-                                users.push(newUser);
-                                fs.writeFileSync('./dataBase.json',JSON.stringify(dataBase));
-                                res.write('{"status":"1"}') // 1代表 注册成功
+                                for( var i = 0, length = users.length; i < length; i++ ){
+                                   if(users[i].user === postDataJson.user){
+                                        exist = true;
+                                        break;
+                                   }
+                                }
+
+                                if(!exist){
+                                    users.push(newUser);
+                                    var ok =  fs.writeFileSync('./dataBase.json',JSON.stringify(dataBase));
+                                    if(!ok){
+                                        res.write('{"status":"1"}') // 1代表 注册成功  
+                                    }else{
+                                        res.write('{"status":"0"}') // 0代表 服务器内部错误 注册失败
+                                    }
+                                }else{
+                                    res.write('{"status":"-1"}')  // -1代表用户存在
+                                }
+
                            
                             res.end();
                             break;
