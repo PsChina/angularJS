@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="./axios.js"></script>
+<script>
+    // 引入问题 发生了跨域
+    // axios({
+    //     url:'http://127.0.0.1:8383/api/get',
+    //     method:'GET'
+    // })
+    // .then((result)=>{
+    //     console.log(result);
+    // },(error)=>{
+    //     console.log(error);
+    // }) 
+
+    let state = 0;
+    const iframe = document.createElement('iframe');
+    iframe.src = 'http://127.0.0.1:8383/api/get';
+    document.body.appendChild(iframe);
+    iframe.onload = function() {
+        if(state===1){
+            console.log(iframe.contentWindow.name)
+            let data = JSON.parse(iframe.contentWindow.name);
+            console.log(data);
+            iframe.contentWindow.document.write('');
+            iframe.contentWindow.close();
+            document.body.removeChild(iframe);
+        } else if(state === 0) {
+            state = 1;
+            iframe.src = 'http://127.0.0.1:8080/empty/proxy.html';
+        }
+    };
+
+</script>
