@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 同域名下的js 文件 请使用http-server 启用一个服务8080
+    function callBack(data){ //定义callBack 函数 由服务端来给定调用函数的代码
+        console.log(data);
+    }
+</script>
+<script src="http://localhost:8081/data.js"></script>
+<!-- 通过src请求 8081下的脚本来调用 callBack 函数 -->
+</html>
