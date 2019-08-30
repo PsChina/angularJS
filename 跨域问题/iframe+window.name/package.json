@@ -7,6 +7,6 @@
     "express": "^4.16.3"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.1"
   }
 }
